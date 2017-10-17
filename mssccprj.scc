@@ -1,0 +1,5 @@
+SCC = This is a Source Code Control file
+
+[DBSync.sln]
+SCC_Aux_Path = "\\192.168.0.2\vss\VSS_CRS3"
+SCC_Project_Name = "$/Lukshin/DBSync/DBSync", KLSBAAAA
