@@ -200,6 +200,10 @@ namespace DBSync
             public string strSizeWishes;
             public string strCategoryWishes;
 
+            public string strWishes1;
+            public string strWishes2;
+            public string strWishes3;
+
             public Dictionary<string, string> dictExInfo = new Dictionary<string, string>();
         }
 
@@ -2884,6 +2888,63 @@ namespace DBSync
                         supplier.ИнтересующиеРазмеры = listSuppliersShop[i].strSizeWishes;
                         supplier.ИнтересующиеКатегории = listSuppliersShop[i].strCategoryWishes;
 
+                        if (listSuppliersShop[i].strWishes1 != "")
+                        {
+                            dynamic findWish = connect.Справочники.КонтрагентыПредпочтения.НайтиПоНаименованию(listSuppliersShop[i].strWishes1, true);
+                            dynamic wish = null;
+                            if (findWish == connect.Справочники.КонтрагентыПредпочтения.ПустаяСсылка())
+                            {
+                                // необходимо добавить тип
+                                wish = connect.Справочники.КонтрагентыПредпочтения.СоздатьЭлемент();
+                                wish.Наименование = listSuppliersShop[i].strWishes1;
+                                wish.Записать();
+                                findWish = wish.Ссылка;
+                            }
+                            supplier.Предпочтения1 = findWish;
+
+                            if (findWish != null) Marshal.FinalReleaseComObject(findWish);
+                        }
+                        else
+                            supplier.Предпочтения1 = connect.Справочники.КонтрагентыПредпочтения.ПустаяСсылка();
+
+                        if (listSuppliersShop[i].strWishes2 != "")
+                        {
+                            dynamic findWish = connect.Справочники.КонтрагентыПредпочтения.НайтиПоНаименованию(listSuppliersShop[i].strWishes2, true);
+                            dynamic wish = null;
+                            if (findWish == connect.Справочники.КонтрагентыПредпочтения.ПустаяСсылка())
+                            {
+                                // необходимо добавить тип
+                                wish = connect.Справочники.КонтрагентыПредпочтения.СоздатьЭлемент();
+                                wish.Наименование = listSuppliersShop[i].strWishes2;
+                                wish.Записать();
+                                findWish = wish.Ссылка;
+                            }
+                            supplier.Предпочтения2 = findWish;
+
+                            if (findWish != null) Marshal.FinalReleaseComObject(findWish);
+                        }
+                        else
+                            supplier.Предпочтения2 = connect.Справочники.КонтрагентыПредпочтения.ПустаяСсылка();
+
+                        if (listSuppliersShop[i].strWishes3 != "")
+                        {
+                            dynamic findWish = connect.Справочники.КонтрагентыПредпочтения.НайтиПоНаименованию(listSuppliersShop[i].strWishes3, true);
+                            dynamic wish = null;
+                            if (findWish == connect.Справочники.КонтрагентыПредпочтения.ПустаяСсылка())
+                            {
+                                // необходимо добавить тип
+                                wish = connect.Справочники.КонтрагентыПредпочтения.СоздатьЭлемент();
+                                wish.Наименование = listSuppliersShop[i].strWishes3;
+                                wish.Записать();
+                                findWish = wish.Ссылка;
+                            }
+                            supplier.Предпочтения3 = findWish;
+
+                            if (findWish != null) Marshal.FinalReleaseComObject(findWish);
+                        }
+                        else
+                            supplier.Предпочтения3 = connect.Справочники.КонтрагентыПредпочтения.ПустаяСсылка();
+
                         if (listSuppliersShop[i].Type == 0)
                             supplier.ЮрФизЛицо = connect.Перечисления.ЮрФизЛицо.ЮрЛицо;
                         else
@@ -2952,6 +3013,65 @@ namespace DBSync
                         supplier.ИнтересующиеМарки = listSuppliers[i].strBrandWishes;
                         supplier.ИнтересующиеРазмеры = listSuppliers[i].strSizeWishes;
                         supplier.ИнтересующиеКатегории = listSuppliers[i].strCategoryWishes;
+
+                        if (listSuppliers[i].strWishes1 != "")
+                        {
+                            dynamic findWish = connectShop.Справочники.КонтрагентыПредпочтения.НайтиПоНаименованию(listSuppliers[i].strWishes1, true);
+                            dynamic wish = null;
+                            if (findWish == connectShop.Справочники.КонтрагентыПредпочтения.ПустаяСсылка())
+                            {
+                                // необходимо добавить тип
+                                wish = connectShop.Справочники.КонтрагентыПредпочтения.СоздатьЭлемент();
+                                wish.Наименование = listSuppliers[i].strWishes1;
+                                wish.Записать();
+                                findWish = wish.Ссылка;
+                            }
+                            supplier.Предпочтения1 = findWish;
+
+                            if (findWish != null) Marshal.FinalReleaseComObject(findWish);
+                        }
+                        else
+                            supplier.Предпочтения1 = connectShop.Справочники.КонтрагентыПредпочтения.ПустаяСсылка();
+
+
+                        if (listSuppliers[i].strWishes2 != "")
+                        {
+                            dynamic findWish = connectShop.Справочники.КонтрагентыПредпочтения.НайтиПоНаименованию(listSuppliers[i].strWishes2, true);
+                            dynamic wish = null;
+                            if (findWish == connectShop.Справочники.КонтрагентыПредпочтения.ПустаяСсылка())
+                            {
+                                // необходимо добавить тип
+                                wish = connectShop.Справочники.КонтрагентыПредпочтения.СоздатьЭлемент();
+                                wish.Наименование = listSuppliers[i].strWishes2;
+                                wish.Записать();
+                                findWish = wish.Ссылка;
+                            }
+                            supplier.Предпочтения2 = findWish;
+
+                            if (findWish != null) Marshal.FinalReleaseComObject(findWish);
+                        }
+                        else
+                            supplier.Предпочтения2 = connectShop.Справочники.КонтрагентыПредпочтения.ПустаяСсылка();
+
+                        if (listSuppliers[i].strWishes3 != "")
+                        {
+                            dynamic findWish = connectShop.Справочники.КонтрагентыПредпочтения.НайтиПоНаименованию(listSuppliers[i].strWishes3, true);
+                            dynamic wish = null;
+                            if (findWish == connectShop.Справочники.КонтрагентыПредпочтения.ПустаяСсылка())
+                            {
+                                // необходимо добавить тип
+                                wish = connectShop.Справочники.КонтрагентыПредпочтения.СоздатьЭлемент();
+                                wish.Наименование = listSuppliers[i].strWishes3;
+                                wish.Записать();
+                                findWish = wish.Ссылка;
+                            }
+                            supplier.Предпочтения3 = findWish;
+
+                            if (findWish != null) Marshal.FinalReleaseComObject(findWish);
+                        }
+                        else
+                            supplier.Предпочтения3 = connectShop.Справочники.КонтрагентыПредпочтения.ПустаяСсылка();
+
 
                         if (listSuppliers[i].Type == 0)
                             supplier.ЮрФизЛицо = connectShop.Перечисления.ЮрФизЛицо.ЮрЛицо;
@@ -3259,9 +3379,20 @@ namespace DBSync
                             si.strSizeWishes = objects.Ссылка.ИнтересующиеРазмеры;
                             si.strCategoryWishes = objects.Ссылка.ИнтересующиеКатегории;
 
+                            si.strWishes1 = "";
+                            si.strWishes2 = "";
+                            si.strWishes3 = "";
+
+                            if (objects.Ссылка.Предпочтения1 != connectShop.Справочники.КонтрагентыПредпочтения.ПустаяСсылка())
+                                si.strWishes1 = objects.Ссылка.Предпочтения1.Наименование;
+                            if (objects.Ссылка.Предпочтения2 != connectShop.Справочники.КонтрагентыПредпочтения.ПустаяСсылка())
+                                si.strWishes2 = objects.Ссылка.Предпочтения2.Наименование;
+                            if (objects.Ссылка.Предпочтения3 != connectShop.Справочники.КонтрагентыПредпочтения.ПустаяСсылка())
+                                si.strWishes3 = objects.Ссылка.Предпочтения3.Наименование;
+
                             si.dateChange = objects.ДатаИзменения;
                             dynamic val_ = objects.ЮрФизЛицо;
-                            if (connect.String(val_) == connectShop.String(connectShop.Перечисления.ЮрФизЛицо.ЮрЛицо))
+                            if (connectShop.String(val_) == connectShop.String(connectShop.Перечисления.ЮрФизЛицо.ЮрЛицо))
                                 si.Type = 0;
                             else
                                 si.Type = 1;
@@ -3298,6 +3429,66 @@ namespace DBSync
                             supplier.ИнтересующиеМарки = si.strBrandWishes;
                             supplier.ИнтересующиеРазмеры = si.strSizeWishes;
                             supplier.ИнтересующиеКатегории = si.strCategoryWishes;
+
+                            if (supplier.strWishes1 != "")
+                            {
+                                dynamic findWish = connect.Справочники.КонтрагентыПредпочтения.НайтиПоНаименованию(supplier.strWishes1, true);
+                                dynamic wish = null;
+                                if (findWish == connect.Справочники.КонтрагентыПредпочтения.ПустаяСсылка())
+                                {
+                                    // необходимо добавить тип
+                                    wish = connect.Справочники.КонтрагентыПредпочтения.СоздатьЭлемент();
+                                    wish.Наименование = supplier.strWishes1;
+                                    wish.Записать();
+                                    findWish = wish.Ссылка;
+                                }
+                                supplier.Предпочтения1 = findWish;
+
+                                if (findWish != null) Marshal.FinalReleaseComObject(findWish);
+                            }
+                            else
+                                supplier.Предпочтения1 = connect.Справочники.КонтрагентыПредпочтения.ПустаяСсылка();
+
+
+                            if (supplier.strWishes2 != "")
+                            {
+                                dynamic findWish = connect.Справочники.КонтрагентыПредпочтения.НайтиПоНаименованию(supplier.strWishes2, true);
+                                dynamic wish = null;
+                                if (findWish == connect.Справочники.КонтрагентыПредпочтения.ПустаяСсылка())
+                                {
+                                    // необходимо добавить тип
+                                    wish = connect.Справочники.КонтрагентыПредпочтения.СоздатьЭлемент();
+                                    wish.Наименование = supplier.strWishes2;
+                                    wish.Записать();
+                                    findWish = wish.Ссылка;
+                                }
+                                supplier.Предпочтения2 = findWish;
+
+                                if (findWish != null) Marshal.FinalReleaseComObject(findWish);
+                            }
+                            else
+                                supplier.Предпочтения2 = connect.Справочники.КонтрагентыПредпочтения.ПустаяСсылка();
+
+
+                            if (supplier.strWishes3 != "")
+                            {
+                                dynamic findWish = connect.Справочники.КонтрагентыПредпочтения.НайтиПоНаименованию(supplier.strWishes3, true);
+                                dynamic wish = null;
+                                if (findWish == connect.Справочники.КонтрагентыПредпочтения.ПустаяСсылка())
+                                {
+                                    // необходимо добавить тип
+                                    wish = connect.Справочники.КонтрагентыПредпочтения.СоздатьЭлемент();
+                                    wish.Наименование = supplier.strWishes3;
+                                    wish.Записать();
+                                    findWish = wish.Ссылка;
+                                }
+                                supplier.Предпочтения3 = findWish;
+
+                                if (findWish != null) Marshal.FinalReleaseComObject(findWish);
+                            }
+                            else
+                                supplier.Предпочтения3 = connect.Справочники.КонтрагентыПредпочтения.ПустаяСсылка();
+
 
                             if (si.Type == 0)
                                 supplier.ЮрФизЛицо = connect.Перечисления.ЮрФизЛицо.ЮрЛицо;
@@ -3540,9 +3731,20 @@ namespace DBSync
                                 si.strSizeWishes = objects.Ссылка.ИнтересующиеРазмеры;
                                 si.strCategoryWishes = objects.Ссылка.ИнтересующиеКатегории;
 
+                                si.strWishes1 = "";
+                                si.strWishes2 = "";
+                                si.strWishes3 = "";
+
+                                if (objects.Ссылка.Предпочтения1 != connectShop.Справочники.КонтрагентыПредпочтения.ПустаяСсылка())
+                                    si.strWishes1 = objects.Ссылка.Предпочтения1.Наименование;
+                                if (objects.Ссылка.Предпочтения2 != connectShop.Справочники.КонтрагентыПредпочтения.ПустаяСсылка())
+                                    si.strWishes2 = objects.Ссылка.Предпочтения2.Наименование;
+                                if (objects.Ссылка.Предпочтения3 != connectShop.Справочники.КонтрагентыПредпочтения.ПустаяСсылка())
+                                    si.strWishes3 = objects.Ссылка.Предпочтения3.Наименование;
+
                                 si.dateChange = objects.ДатаИзменения;
                                 dynamic val_ = objects.ЮрФизЛицо;
-                                if (connect.String(val_) == connectShop.String(connectShop.Перечисления.ЮрФизЛицо.ЮрЛицо))
+                                if (connectShop.String(val_) == connectShop.String(connectShop.Перечисления.ЮрФизЛицо.ЮрЛицо))
                                     si.Type = 0;
                                 else
                                     si.Type = 1;
@@ -3579,6 +3781,63 @@ namespace DBSync
                                 supplier.ИнтересующиеМарки = si.strBrandWishes;
                                 supplier.ИнтересующиеРазмеры = si.strSizeWishes;
                                 supplier.ИнтересующиеКатегории = si.strCategoryWishes;
+
+                                if (supplier.strWishes1 != "")
+                                {
+                                    dynamic findWish = connect.Справочники.КонтрагентыПредпочтения.НайтиПоНаименованию(supplier.strWishes1, true);
+                                    dynamic wish = null;
+                                    if (findWish == connect.Справочники.КонтрагентыПредпочтения.ПустаяСсылка())
+                                    {
+                                        // необходимо добавить тип
+                                        wish = connect.Справочники.КонтрагентыПредпочтения.СоздатьЭлемент();
+                                        wish.Наименование = supplier.strWishes1;
+                                        wish.Записать();
+                                        findWish = wish.Ссылка;
+                                    }
+                                    supplier.Предпочтения1 = findWish;
+
+                                    if (findWish != null) Marshal.FinalReleaseComObject(findWish);
+                                }
+                                else
+                                    supplier.Предпочтения1 = connect.Справочники.КонтрагентыПредпочтения.ПустаяСсылка();
+
+                                if (supplier.strWishes2 != "")
+                                {
+                                    dynamic findWish = connect.Справочники.КонтрагентыПредпочтения.НайтиПоНаименованию(supplier.strWishes2, true);
+                                    dynamic wish = null;
+                                    if (findWish == connect.Справочники.КонтрагентыПредпочтения.ПустаяСсылка())
+                                    {
+                                        // необходимо добавить тип
+                                        wish = connect.Справочники.КонтрагентыПредпочтения.СоздатьЭлемент();
+                                        wish.Наименование = supplier.strWishes2;
+                                        wish.Записать();
+                                        findWish = wish.Ссылка;
+                                    }
+                                    supplier.Предпочтения2 = findWish;
+
+                                    if (findWish != null) Marshal.FinalReleaseComObject(findWish);
+                                }
+                                else
+                                    supplier.Предпочтения2 = connect.Справочники.КонтрагентыПредпочтения.ПустаяСсылка();
+
+                                if (supplier.strWishes3 != "")
+                                {
+                                    dynamic findWish = connect.Справочники.КонтрагентыПредпочтения.НайтиПоНаименованию(supplier.strWishes3, true);
+                                    dynamic wish = null;
+                                    if (findWish == connect.Справочники.КонтрагентыПредпочтения.ПустаяСсылка())
+                                    {
+                                        // необходимо добавить тип
+                                        wish = connect.Справочники.КонтрагентыПредпочтения.СоздатьЭлемент();
+                                        wish.Наименование = supplier.strWishes3;
+                                        wish.Записать();
+                                        findWish = wish.Ссылка;
+                                    }
+                                    supplier.Предпочтения3 = findWish;
+
+                                    if (findWish != null) Marshal.FinalReleaseComObject(findWish);
+                                }
+                                else
+                                    supplier.Предпочтения3 = connect.Справочники.КонтрагентыПредпочтения.ПустаяСсылка();
 
                                 if (si.Type == 0)
                                     supplier.ЮрФизЛицо = connect.Перечисления.ЮрФизЛицо.ЮрЛицо;
@@ -3900,9 +4159,20 @@ namespace DBSync
                             si.strSizeWishes = objects.Ссылка.ИнтересующиеРазмеры;
                             si.strCategoryWishes = objects.Ссылка.ИнтересующиеКатегории;
 
+                            si.strWishes1 = "";
+                            si.strWishes2 = "";
+                            si.strWishes3 = "";
+
+                            if (objects.Ссылка.Предпочтения1 != connectShop.Справочники.КонтрагентыПредпочтения.ПустаяСсылка())
+                                si.strWishes1 = objects.Ссылка.Предпочтения1.Наименование;
+                            if (objects.Ссылка.Предпочтения2 != connectShop.Справочники.КонтрагентыПредпочтения.ПустаяСсылка())
+                                si.strWishes2 = objects.Ссылка.Предпочтения2.Наименование;
+                            if (objects.Ссылка.Предпочтения3 != connectShop.Справочники.КонтрагентыПредпочтения.ПустаяСсылка())
+                                si.strWishes3 = objects.Ссылка.Предпочтения3.Наименование;
+
                             si.dateChange = objects.ДатаИзменения;
                             dynamic val_ = objects.ЮрФизЛицо;
-                            if (connect.String(val_) == connectShop.String(connectShop.Перечисления.ЮрФизЛицо.ЮрЛицо))
+                            if (connectShop.String(val_) == connectShop.String(connectShop.Перечисления.ЮрФизЛицо.ЮрЛицо))
                                 si.Type = 0;
                             else
                                 si.Type = 1;
@@ -3939,6 +4209,63 @@ namespace DBSync
                             supplier.ИнтересующиеМарки = si.strBrandWishes;
                             supplier.ИнтересующиеРазмеры = si.strSizeWishes;
                             supplier.ИнтересующиеКатегории = si.strCategoryWishes;
+
+                            if (supplier.strWishes1 != "")
+                            {
+                                dynamic findWish = connect.Справочники.КонтрагентыПредпочтения.НайтиПоНаименованию(supplier.strWishes1, true);
+                                dynamic wish = null;
+                                if (findWish == connect.Справочники.КонтрагентыПредпочтения.ПустаяСсылка())
+                                {
+                                    // необходимо добавить тип
+                                    wish = connect.Справочники.КонтрагентыПредпочтения.СоздатьЭлемент();
+                                    wish.Наименование = supplier.strWishes1;
+                                    wish.Записать();
+                                    findWish = wish.Ссылка;
+                                }
+                                supplier.Предпочтения1 = findWish;
+
+                                if (findWish != null) Marshal.FinalReleaseComObject(findWish);
+                            }
+                            else
+                                supplier.Предпочтения1 = connect.Справочники.КонтрагентыПредпочтения.ПустаяСсылка();
+
+                            if (supplier.strWishes2 != "")
+                            {
+                                dynamic findWish = connect.Справочники.КонтрагентыПредпочтения.НайтиПоНаименованию(supplier.strWishes2, true);
+                                dynamic wish = null;
+                                if (findWish == connect.Справочники.КонтрагентыПредпочтения.ПустаяСсылка())
+                                {
+                                    // необходимо добавить тип
+                                    wish = connect.Справочники.КонтрагентыПредпочтения.СоздатьЭлемент();
+                                    wish.Наименование = supplier.strWishes2;
+                                    wish.Записать();
+                                    findWish = wish.Ссылка;
+                                }
+                                supplier.Предпочтения2 = findWish;
+
+                                if (findWish != null) Marshal.FinalReleaseComObject(findWish);
+                            }
+                            else
+                                supplier.Предпочтения2 = connect.Справочники.КонтрагентыПредпочтения.ПустаяСсылка();
+
+                            if (supplier.strWishes3 != "")
+                            {
+                                dynamic findWish = connect.Справочники.КонтрагентыПредпочтения.НайтиПоНаименованию(supplier.strWishes3, true);
+                                dynamic wish = null;
+                                if (findWish == connect.Справочники.КонтрагентыПредпочтения.ПустаяСсылка())
+                                {
+                                    // необходимо добавить тип
+                                    wish = connect.Справочники.КонтрагентыПредпочтения.СоздатьЭлемент();
+                                    wish.Наименование = supplier.strWishes3;
+                                    wish.Записать();
+                                    findWish = wish.Ссылка;
+                                }
+                                supplier.Предпочтения3 = findWish;
+
+                                if (findWish != null) Marshal.FinalReleaseComObject(findWish);
+                            }
+                            else
+                                supplier.Предпочтения3 = connect.Справочники.КонтрагентыПредпочтения.ПустаяСсылка();
 
                             if (si.Type == 0)
                                 supplier.ЮрФизЛицо = connect.Перечисления.ЮрФизЛицо.ЮрЛицо;
@@ -5396,6 +5723,17 @@ namespace DBSync
                             si.strSizeWishes = objects.Ссылка.ИнтересующиеРазмеры;
                             si.strCategoryWishes = objects.Ссылка.ИнтересующиеКатегории;
 
+                            si.strWishes1 = "";
+                            si.strWishes2 = "";
+                            si.strWishes3 = "";
+
+                            if (objects.Ссылка.Предпочтения1 != connect.Справочники.КонтрагентыПредпочтения.ПустаяСсылка())
+                                si.strWishes1 = objects.Ссылка.Предпочтения1.Наименование;
+                            if (objects.Ссылка.Предпочтения2 != connect.Справочники.КонтрагентыПредпочтения.ПустаяСсылка())
+                                si.strWishes2 = objects.Ссылка.Предпочтения2.Наименование;
+                            if (objects.Ссылка.Предпочтения3 != connect.Справочники.КонтрагентыПредпочтения.ПустаяСсылка())
+                                si.strWishes3 = objects.Ссылка.Предпочтения3.Наименование;
+
                             si.dateChange = objects.Ссылка.ДатаИзменения;
                             dynamic val = objects.Ссылка.ЮрФизЛицо;
                             if (connect.String(val) == connect.String(connect.Перечисления.ЮрФизЛицо.ЮрЛицо))
@@ -5462,9 +5800,20 @@ namespace DBSync
                             si.strSizeWishes = objects.Ссылка.ИнтересующиеРазмеры;
                             si.strCategoryWishes = objects.Ссылка.ИнтересующиеКатегории;
 
+                            si.strWishes1 = "";
+                            si.strWishes2 = "";
+                            si.strWishes3 = "";
+
+                            if (objects.Ссылка.Предпочтения1 != connectShop.Справочники.КонтрагентыПредпочтения.ПустаяСсылка())
+                                si.strWishes1 = objects.Ссылка.Предпочтения1.Наименование;
+                            if (objects.Ссылка.Предпочтения2 != connectShop.Справочники.КонтрагентыПредпочтения.ПустаяСсылка())
+                                si.strWishes2 = objects.Ссылка.Предпочтения2.Наименование;
+                            if (objects.Ссылка.Предпочтения3 != connectShop.Справочники.КонтрагентыПредпочтения.ПустаяСсылка())
+                                si.strWishes3 = objects.Ссылка.Предпочтения3.Наименование;
+
                             si.dateChange = objects.Ссылка.ДатаИзменения;
                             dynamic val = objects.Ссылка.ЮрФизЛицо;
-                            if (connect.String(val) == connect.String(connect.Перечисления.ЮрФизЛицо.ЮрЛицо))
+                            if (connectShop.String(val) == connectShop.String(connectShop.Перечисления.ЮрФизЛицо.ЮрЛицо))
                                 si.Type = 0;
                             else
                                 si.Type = 1;
