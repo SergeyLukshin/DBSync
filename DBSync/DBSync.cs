@@ -971,7 +971,7 @@ namespace DBSync
 
                 if (!m_bNoDeleteDocuments)
                 {
-                    dynamic mod = connectShop.СинхронизацияБаз;
+                    dynamic mod = connectShop.SyncDB;
                     int res = mod.ЗафиксироватьОстатки(m_bDeleteAutoInvoice, m_bVerifyMainBase, m_bDeleteAutoInvoice);
 
                     if (res == 0)
@@ -993,7 +993,7 @@ namespace DBSync
                 }
                 else
                 {
-                    dynamic mod = connectShop.СинхронизацияБаз;
+                    dynamic mod = connectShop.SyncDB;
                     int res = mod.ЗафиксироватьОстаткиБезУдаления(m_bDeleteAutoInvoice);
 
                     if (res == 0)
@@ -3654,6 +3654,7 @@ namespace DBSync
                     {
                         // если не находим документа с таким номером и датой, просто добавляем его и проводим
                         // если находим, тогда добавляем только позиции
+                        backgroundWorker1.ReportProgress(0, (i + 1).ToString() + ". Обработка документа реализации №" + listInvoiceOutDocumentsShop[i].strCode + " от " + listInvoiceOutDocumentsShop[i].date.ToShortDateString() + ".");
 
                         dynamic findDoc = connect.Документы.РеализацияТоваров.НайтиПоРеквизиту("КодДляСинхронизации", listInvoiceOutDocumentsShop[i].strCodeSync);
                         dynamic doc = null;
