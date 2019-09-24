@@ -2858,6 +2858,10 @@ namespace DBSync
 
                     for (int i = 0; i < listSuppliersShop.Count; i++)
                     {
+                        backgroundWorker1.ReportProgress(0, (i + 1).ToString() + ". Контрагент " + listSuppliersShop[i].strName + " - начало синхронизации...");
+
+                        //backgroundWorker1.ReportProgress(0, "...1");
+
                         dynamic findSupplier = connect.Справочники.Контрагенты.НайтиПоРеквизиту("КодДляСинхронизации", listSuppliersShop[i].strCodeSync);
                         dynamic supplier = null;
                         if (findSupplier == connect.Справочники.Контрагенты.ПустаяСсылка())
@@ -2869,6 +2873,8 @@ namespace DBSync
                         {
                             supplier = findSupplier.ПолучитьОбъект();
                         }
+
+                        //backgroundWorker1.ReportProgress(0, "...2");
 
                         supplier.КодДляСинхронизации = listSuppliersShop[i].strCodeSync;
                         supplier.Наименование = listSuppliersShop[i].strName;
@@ -2887,6 +2893,8 @@ namespace DBSync
                         supplier.ИнтересующиеМарки = listSuppliersShop[i].strBrandWishes;
                         supplier.ИнтересующиеРазмеры = listSuppliersShop[i].strSizeWishes;
                         supplier.ИнтересующиеКатегории = listSuppliersShop[i].strCategoryWishes;
+
+                        //backgroundWorker1.ReportProgress(0, "...3");
 
                         if (listSuppliersShop[i].strWishes1 != "")
                         {
@@ -2907,6 +2915,8 @@ namespace DBSync
                         else
                             supplier.Предпочтения1 = connect.Справочники.КонтрагентыПредпочтения.ПустаяСсылка();
 
+                        //backgroundWorker1.ReportProgress(0, "...4");
+
                         if (listSuppliersShop[i].strWishes2 != "")
                         {
                             dynamic findWish = connect.Справочники.КонтрагентыПредпочтения.НайтиПоНаименованию(listSuppliersShop[i].strWishes2, true);
@@ -2925,6 +2935,8 @@ namespace DBSync
                         }
                         else
                             supplier.Предпочтения2 = connect.Справочники.КонтрагентыПредпочтения.ПустаяСсылка();
+
+                        //backgroundWorker1.ReportProgress(0, "...5");
 
                         if (listSuppliersShop[i].strWishes3 != "")
                         {
@@ -2945,12 +2957,18 @@ namespace DBSync
                         else
                             supplier.Предпочтения3 = connect.Справочники.КонтрагентыПредпочтения.ПустаяСсылка();
 
+                        //backgroundWorker1.ReportProgress(0, "...6");
+
                         if (listSuppliersShop[i].Type == 0)
                             supplier.ЮрФизЛицо = connect.Перечисления.ЮрФизЛицо.ЮрЛицо;
                         else
                             supplier.ЮрФизЛицо = connect.Перечисления.ЮрФизЛицо.ФизЛицо;
 
+                        //backgroundWorker1.ReportProgress(0, "...7");
+
                         supplier.КонтактнаяИнформация.Очистить();
+
+                        //backgroundWorker1.ReportProgress(0, "...8");
 
                         foreach (KeyValuePair<string, string> val in listSuppliersShop[i].dictExInfo)
                         {
@@ -2969,12 +2987,16 @@ namespace DBSync
                             }
                         }
 
+                        //backgroundWorker1.ReportProgress(0, "...9");
+
                         supplier.Записать();
+
+                        //backgroundWorker1.ReportProgress(0, "...10");
 
                         if (supplier != null) Marshal.FinalReleaseComObject(supplier);
                         if (findSupplier != null) Marshal.FinalReleaseComObject(findSupplier);
 
-                        backgroundWorker1.ReportProgress(0, (i + 1).ToString() + ". Контрагент " + listSuppliersShop[i].strName + " успешно синхронизирован.");
+                        backgroundWorker1.ReportProgress(0, "--- успешно синхронизирован.");
 
                     }
                     if (parentVid != null) Marshal.FinalReleaseComObject(parentVid);
@@ -2984,6 +3006,8 @@ namespace DBSync
 
                     for (int i = 0; i < listSuppliers.Count; i++)
                     {
+                        backgroundWorker1.ReportProgress(0, (i + 1).ToString() + ". Контрагент " + listSuppliers[i].strName + " - начало синхронизации...");
+
                         dynamic findSupplier = connectShop.Справочники.Контрагенты.НайтиПоРеквизиту("КодДляСинхронизации", listSuppliers[i].strCodeSync);
                         dynamic supplier = null;
                         if (findSupplier == connectShop.Справочники.Контрагенты.ПустаяСсылка())
@@ -3102,7 +3126,7 @@ namespace DBSync
                         if (supplier != null) Marshal.FinalReleaseComObject(supplier);
                         if (findSupplier != null) Marshal.FinalReleaseComObject(findSupplier);
 
-                        backgroundWorker1.ReportProgress(0, (i + 1).ToString() + ". Контрагент " + listSuppliers[i].strName + " успешно синхронизирован.");
+                        backgroundWorker1.ReportProgress(0, "--- успешно синхронизирован.");
                     }
 
                     if (parentVidShop != null) Marshal.FinalReleaseComObject(parentVidShop);
@@ -3291,6 +3315,7 @@ namespace DBSync
                 // передаем данные по приходу товаров
                 for (int i = 0; i < listInvoiceInDocumentsShop.Count(); i++)
                 {
+                    backgroundWorker1.ReportProgress(0, (i + 1).ToString() + ". Документ поступления №" + listInvoiceInDocumentsShop[i].strCode + " от " + listInvoiceInDocumentsShop[i].date.ToShortDateString() + " - начало синхронизации...");
 
                     // если не находим документа с таким номером и датой, просто добавляем его и проводим
                     // если находим, тогда добавляем только позиции
@@ -3305,7 +3330,7 @@ namespace DBSync
                             if (findDoc != null) Marshal.FinalReleaseComObject(findDoc);
                             if (doc != null) Marshal.FinalReleaseComObject(doc);
 
-                            backgroundWorker1.ReportProgress(0, (i + 1).ToString() + ". Документ поступления №" + listInvoiceInDocumentsShop[i].strCode + " от " + listInvoiceInDocumentsShop[i].date.ToShortDateString() + " пропущен, т.к. он не проведен.");
+                            backgroundWorker1.ReportProgress(0, "--- пропущен, т.к. не проведен.");
 
                             continue;
                         }
@@ -3533,7 +3558,7 @@ namespace DBSync
                             if (findUser != null) Marshal.FinalReleaseComObject(findUser);
                             if (findDoc != null) Marshal.FinalReleaseComObject(findDoc);
                             if (doc != null) Marshal.FinalReleaseComObject(doc);
-                            backgroundWorker1.ReportProgress(1, (i + 1).ToString() + ". Документ поступления №" + listInvoiceInDocumentsShop[i].strCode + " от " + listInvoiceInDocumentsShop[i].date.ToShortDateString() + " пропущен, т.к. не удалось найти контрагента.");
+                            backgroundWorker1.ReportProgress(1, "-- пропущен, т.к. не удалось найти контрагента.");
                             continue;
                         }
                     }
@@ -3562,7 +3587,7 @@ namespace DBSync
                         dynamic findTovar = connect.Справочники.Номенклатура.НайтиПоРеквизиту("КодДляСинхронизации", listInvoiceInDocumentsShop[i].listTovars[j].strTovarSyncCode);
                         if (findTovar == connect.Справочники.Номенклатура.ПустаяСсылка())
                         {
-                            backgroundWorker1.ReportProgress(1, (i + 1).ToString() + ". Документ поступления №" + listInvoiceInDocumentsShop[i].strCode + " от " + listInvoiceInDocumentsShop[i].date.ToShortDateString() + " пропущен, т.к. не удалось найти номенклатуру с кодом " + listInvoiceInDocumentsShop[i].listTovars[j].strTovarSyncCode);
+                            backgroundWorker1.ReportProgress(1, "--- пропущен, т.к. не удалось найти номенклатуру с кодом " + listInvoiceInDocumentsShop[i].listTovars[j].strTovarSyncCode);
                             if (findTovar != null) Marshal.FinalReleaseComObject(findTovar);
                             bError = true;
                             break;
@@ -3570,7 +3595,7 @@ namespace DBSync
                         dynamic findAttrib = connect.Справочники.ХарактеристикиНоменклатуры.НайтиПоРеквизиту("КодДляСинхронизации", listInvoiceInDocumentsShop[i].listTovars[j].strAttribSyncCode);
                         if (findAttrib == connect.Справочники.ХарактеристикиНоменклатуры.ПустаяСсылка())
                         {
-                            backgroundWorker1.ReportProgress(1, (i + 1).ToString() + ". Документ поступления №" + listInvoiceInDocumentsShop[i].strCode + " от " + listInvoiceInDocumentsShop[i].date.ToShortDateString() + " пропущен, т.к. не удалось найти характеристику номенклатуры с кодом " + listInvoiceInDocumentsShop[i].listTovars[j].strAttribSyncCode);
+                            backgroundWorker1.ReportProgress(1, "--- пропущен, т.к. не удалось найти характеристику номенклатуры с кодом " + listInvoiceInDocumentsShop[i].listTovars[j].strAttribSyncCode);
                             if (findTovar != null) Marshal.FinalReleaseComObject(findTovar);
                             if (findAttrib != null) Marshal.FinalReleaseComObject(findTovar);
                             bError = true;
@@ -3617,7 +3642,7 @@ namespace DBSync
                     if (findDoc != null) Marshal.FinalReleaseComObject(findDoc);
                     if (doc != null) Marshal.FinalReleaseComObject(doc);
 
-                    backgroundWorker1.ReportProgress(0, (i + 1).ToString() + ". Документ поступления №" + listInvoiceInDocumentsShop[i].strCode + " от " + listInvoiceInDocumentsShop[i].date.ToShortDateString() + " успешно синхронизирован.");
+                    backgroundWorker1.ReportProgress(0, "--- успешно синхронизирован.");
                 }
 
                 if (listInvoiceInDocumentsShop.Count() > 0)
@@ -3654,7 +3679,7 @@ namespace DBSync
                     {
                         // если не находим документа с таким номером и датой, просто добавляем его и проводим
                         // если находим, тогда добавляем только позиции
-                        backgroundWorker1.ReportProgress(0, (i + 1).ToString() + ". Обработка документа реализации №" + listInvoiceOutDocumentsShop[i].strCode + " от " + listInvoiceOutDocumentsShop[i].date.ToShortDateString() + ".");
+                        backgroundWorker1.ReportProgress(0, (i + 1).ToString() + ". Документ реализации №" + listInvoiceOutDocumentsShop[i].strCode + " от " + listInvoiceOutDocumentsShop[i].date.ToShortDateString() + " - начало синхронизации");
 
                         dynamic findDoc = connect.Документы.РеализацияТоваров.НайтиПоРеквизиту("КодДляСинхронизации", listInvoiceOutDocumentsShop[i].strCodeSync);
                         dynamic doc = null;
@@ -3665,7 +3690,7 @@ namespace DBSync
                             {
                                 if (findDoc != null) Marshal.FinalReleaseComObject(findDoc);
                                 if (doc != null) Marshal.FinalReleaseComObject(doc);
-                                backgroundWorker1.ReportProgress(0, (i + 1).ToString() + ". Документ реализации №" + listInvoiceOutDocumentsShop[i].strCode + " от " + listInvoiceOutDocumentsShop[i].date.ToShortDateString() + " пропущен, т.к. он не проведен.");
+                                backgroundWorker1.ReportProgress(0, "--- пропущен, т.к. не проведен.");
                                 continue;
                             }
                             // необходимо добавить номенклатуру
@@ -3882,7 +3907,7 @@ namespace DBSync
                                 if (findDoc != null) Marshal.FinalReleaseComObject(findDoc);
                                 if (doc != null) Marshal.FinalReleaseComObject(doc);
 
-                                backgroundWorker1.ReportProgress(1, (i + 1).ToString() + ". Документ реализации №" + listInvoiceOutDocumentsShop[i].strCode + " от " + listInvoiceOutDocumentsShop[i].date.ToShortDateString() + " пропущен, т.к. не удалось найти контрагента.");
+                                backgroundWorker1.ReportProgress(1, "--- пропущен, т.к. не удалось найти контрагента.");
                                 continue;
                             }
                         }
@@ -3958,7 +3983,7 @@ namespace DBSync
                             if (findTovar == connect.Справочники.Номенклатура.ПустаяСсылка())
                             {
                                 bError = true;
-                                backgroundWorker1.ReportProgress(1, (i + 1).ToString() + ". Документ реализации №" + listInvoiceOutDocumentsShop[i].strCode + " от " + listInvoiceOutDocumentsShop[i].date.ToShortDateString() + " пропущен, т.к. не удалось найти номенклатуру с кодом " + listInvoiceOutDocumentsShop[i].listTovars[j].strTovarSyncCode);
+                                backgroundWorker1.ReportProgress(1, "--- пропущен, т.к. не удалось найти номенклатуру с кодом " + listInvoiceOutDocumentsShop[i].listTovars[j].strTovarSyncCode);
                                 if (findTovar != null) Marshal.FinalReleaseComObject(findTovar);
                                 break;
                             }
@@ -3966,12 +3991,12 @@ namespace DBSync
                             if (findAttrib == connect.Справочники.ХарактеристикиНоменклатуры.ПустаяСсылка())
                             {
                                 bError = true;
-                                backgroundWorker1.ReportProgress(1, (i + 1).ToString() + ". Документ реализации №" + listInvoiceOutDocumentsShop[i].strCode + " от " + listInvoiceOutDocumentsShop[i].date.ToShortDateString() + " пропущен, т.к. не удалось найти характеристику номенклатуры с кодом " + listInvoiceOutDocumentsShop[i].listTovars[j].strAttribSyncCode);
+                                backgroundWorker1.ReportProgress(1, (i + 1).ToString() + "--- пропущен, т.к. не удалось найти характеристику номенклатуры с кодом " + listInvoiceOutDocumentsShop[i].listTovars[j].strAttribSyncCode);
                                 if (findTovar != null) Marshal.FinalReleaseComObject(findTovar);
                                 if (findAttrib != null) Marshal.FinalReleaseComObject(findAttrib);
                                 break;
                             }
-
+                            
                             dynamic new_row = doc.Товары.Добавить();
                             new_row.Номенклатура = findTovar;
                             new_row.СтавкаНДС = connect.Перечисления.СтавкиНДС.БезНДС;
@@ -4021,7 +4046,7 @@ namespace DBSync
                             //backgroundWorker3.ReportProgress(0, "Сумма документа после применения скидок не совпадает с документом в магазине.");
                             if (MessageBox.Show("Сумма документа после применения скидок не совпадает с документом в магазине. Продолжить сохранение?", "Предупреждение", MessageBoxButtons.OKCancel) == System.Windows.Forms.DialogResult.Cancel)
                             {
-                                backgroundWorker1.ReportProgress(1, (i + 1).ToString() + ". Документ реализации №" + listInvoiceOutDocumentsShop[i].strCode + " от " + listInvoiceOutDocumentsShop[i].date.ToShortDateString() + " пропущен, т.к. сумма с учетом скидок не совпадает.");
+                                backgroundWorker1.ReportProgress(1, "--- пропущен, т.к. сумма с учетом скидок не совпадает.");
                                 bError = true;
                             }
                         }
@@ -4045,7 +4070,7 @@ namespace DBSync
                         if (findDoc != null) Marshal.FinalReleaseComObject(findDoc);
                         if (doc != null) Marshal.FinalReleaseComObject(doc);
 
-                        backgroundWorker1.ReportProgress(0, (i + 1).ToString() + ". Документ реализации №" + listInvoiceOutDocumentsShop[i].strCode + " от " + listInvoiceOutDocumentsShop[i].date.ToShortDateString() + " успешно синхронизирован.");
+                        backgroundWorker1.ReportProgress(0, "--- успешно синхронизирован.");
                     }
                     /*catch (Exception)
                     {
